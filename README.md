@@ -40,8 +40,6 @@ The proposed application facilitates transportation for employees of organizatio
   - Manually add users one by one.
 - Automatic email invitations for users to set up passwords upon account creation.
 - CRUD operations for managing users:
-  - Edit user details.
-  - Reset user passwords.
   - Deactivate user accounts.
 
 #### **3. User Front-Office**
@@ -110,10 +108,10 @@ The proposed application facilitates transportation for employees of organizatio
 ### **Development Timeline**
 | **Phase**       | **Tasks**                                                   | **Duration** |
 |------------------|------------------------------------------------------------|--------------|
-| Planning         | Define requirements, create wireframes, and finalize stack | 2 weeks      |
-| Backend Setup    | API development, database schema design, and authentication | 4 weeks      |
-| Frontend Setup   | Create UI, integrate backend, and implement features       | 4 weeks      |
-| Testing          | Perform unit, integration, and user testing                | 2 weeks      |
+| Planning         | Define requirements, create wireframes, and finalize stack | 1 day      |
+| Backend Setup    | API development, database schema design, and authentication | 1 weeks      |
+| Frontend Setup   | Create UI, integrate backend, and implement features       | 1 weeks      |
+| Testing          | Perform unit, integration, and user testing                | 2 days     |
 | Deployment       | Deploy to production with monitoring setup                 | 1 week       |
 
 ---
