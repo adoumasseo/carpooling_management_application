@@ -38,3 +38,5 @@ const handleDisconnect = async (databaseCon) => {
      process.exit(1);
    }
 }
+
+module.exports = connectToDatabase;
