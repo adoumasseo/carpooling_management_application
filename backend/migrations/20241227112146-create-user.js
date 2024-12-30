@@ -22,6 +22,21 @@ module.exports = {
         allowNull: false,
         unique: true, // Ensure email uniqueness at the database level
       },
+      status: {
+        type: Sequelize.ENUM('active', 'inactive'),
+        allowNull: false,
+        defaultValue: 'active'
+      },
+      companyId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'Companies',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       role: {
         type: Sequelize.ENUM('super_admin', 'company_admin', 'user'),
         allowNull: false,

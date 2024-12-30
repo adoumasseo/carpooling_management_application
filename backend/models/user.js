@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Company)
     }
 
     /**
@@ -31,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
+      id: { 
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        unique: true,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

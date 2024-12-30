@@ -4,20 +4,20 @@
     "password": "Jolidon21",
     "database": "carpooling_dev",
     "host": "127.0.0.1",
-    "dialect": "psql"
+    "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "Jolidon21",
     "database": "carpooling_test",
     "host": "127.0.0.1",
-    "dialect": "psql"
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "Jolidon21",
     "database": "carpooling",
     "host": "127.0.0.1",
-    "dialect": "psql"
+    "dialect": "postgres"
   }
 }
