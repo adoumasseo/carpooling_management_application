@@ -5,15 +5,16 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
- * createTable "Companies", deps: []
- * createTable "Users", deps: [Companies]
+ * createTable "Trips", deps: [Users, Users]
+ * createTable "TripParticipants", deps: [Users, Users]
+ * createTable "Comments", deps: [Trips, TripParticipants, Trips, TripParticipants]
  *
  **/
 
 var info = {
-    "revision": 1,
+    "revision": 3,
     "name": "noname",
-    "created": "2024-12-30T09:07:42.755Z",
+    "created": "2024-12-30T11:15:30.355Z",
     "comment": ""
 };
 
@@ -21,7 +22,7 @@ var migrationCommands = function(transaction) {
     return [{
             fn: "createTable",
             params: [
-                "Companies",
+                "Trips",
                 {
                     "id": {
                         "type": Sequelize.UUID,
@@ -35,17 +36,31 @@ var migrationCommands = function(transaction) {
                         "field": "name",
                         "allowNull": false
                     },
-                    "address": {
-                        "type": Sequelize.STRING,
-                        "field": "address",
-                        "unique": true,
+                    "startDate": {
+                        "type": Sequelize.DATE,
+                        "field": "startDate",
                         "allowNull": false
                     },
-                    "email": {
+                    "startPlace": {
                         "type": Sequelize.STRING,
-                        "field": "email",
-                        "unique": true,
+                        "field": "startPlace",
                         "allowNull": false
+                    },
+                    "endPlace": {
+                        "type": Sequelize.STRING,
+                        "field": "endPlace",
+                        "allowNull": false
+                    },
+                    "status": {
+                        "type": Sequelize.ENUM('planned', 'active', 'suspended'),
+                        "field": "status",
+                        "defaultValue": "planned",
+                        "allowNull": false
+                    },
+                    "suspend_reason": {
+                        "type": Sequelize.STRING,
+                        "field": "suspend_reason",
+                        "allowNull": true
                     },
                     "createdAt": {
                         "type": Sequelize.DATE,
@@ -56,6 +71,17 @@ var migrationCommands = function(transaction) {
                         "type": Sequelize.DATE,
                         "field": "updatedAt",
                         "allowNull": false
+                    },
+                    "userId": {
+                        "type": Sequelize.UUID,
+                        "field": "userId",
+                        "onUpdate": "CASCADE",
+                        "onDelete": "SET NULL",
+                        "references": {
+                            "model": "Users",
+                            "key": "id"
+                        },
+                        "allowNull": true
                     }
                 },
                 {
@@ -66,7 +92,7 @@ var migrationCommands = function(transaction) {
         {
             fn: "createTable",
             params: [
-                "Users",
+                "TripParticipants",
                 {
                     "id": {
                         "type": Sequelize.UUID,
@@ -75,26 +101,75 @@ var migrationCommands = function(transaction) {
                         "primaryKey": true,
                         "defaultValue": Sequelize.UUIDV4
                     },
-                    "name": {
+                    "token": {
                         "type": Sequelize.STRING,
-                        "field": "name",
-                        "allowNull": false
-                    },
-                    "password": {
-                        "type": Sequelize.STRING,
-                        "field": "password",
-                        "allowNull": false
-                    },
-                    "email": {
-                        "type": Sequelize.STRING,
-                        "field": "email",
+                        "field": "token",
                         "unique": true,
+                        "allowNull": true
+                    },
+                    "cancel_reason": {
+                        "type": Sequelize.STRING,
+                        "field": "cancel_reason",
+                        "allowNull": true
+                    },
+                    "status": {
+                        "type": Sequelize.ENUM('confirmed', 'pending', 'cancelled'),
+                        "field": "status",
+                        "allowNull": false,
+                        "defaultValue": "cancelled"
+                    },
+                    "createdAt": {
+                        "type": Sequelize.DATE,
+                        "field": "createdAt",
                         "allowNull": false
                     },
-                    "role": {
-                        "type": Sequelize.ENUM('super_admin', 'company_admin', 'user'),
-                        "field": "role",
+                    "updatedAt": {
+                        "type": Sequelize.DATE,
+                        "field": "updatedAt",
                         "allowNull": false
+                    },
+                    "userId": {
+                        "type": Sequelize.UUID,
+                        "field": "userId",
+                        "onUpdate": "CASCADE",
+                        "onDelete": "SET NULL",
+                        "references": {
+                            "model": "Users",
+                            "key": "id"
+                        },
+                        "allowNull": true
+                    }
+                },
+                {
+                    "transaction": transaction
+                }
+            ]
+        },
+        {
+            fn: "createTable",
+            params: [
+                "Comments",
+                {
+                    "tripId": {
+                        "type": Sequelize.UUID,
+                        "field": "tripId",
+                        "references": {
+                            "model": "Trips",
+                            "key": "id"
+                        }
+                    },
+                    "tripparticipantId": {
+                        "type": Sequelize.UUID,
+                        "field": "tripparticipantId",
+                        "references": {
+                            "model": "TripParticipants",
+                            "key": "id"
+                        }
+                    },
+                    "content": {
+                        "type": Sequelize.STRING,
+                        "field": "content",
+                        "allowNull": true
                     },
                     "createdAt": {
                         "type": Sequelize.DATE,
@@ -117,13 +192,19 @@ var migrationCommands = function(transaction) {
 var rollbackCommands = function(transaction) {
     return [{
             fn: "dropTable",
-            params: ["Companies", {
+            params: ["Comments", {
                 transaction: transaction
             }]
         },
         {
             fn: "dropTable",
-            params: ["Users", {
+            params: ["Trips", {
+                transaction: transaction
+            }]
+        },
+        {
+            fn: "dropTable",
+            params: ["TripParticipants", {
                 transaction: transaction
             }]
         }

@@ -15,19 +15,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init({
     tripId: {
-        type: DataTypes.UUID,
-        references: {
-          model: 'Trips',
-          key: 'id',
-        },
+      type: DataTypes.UUID,
+      references: {
+        model: 'Trips',
+        key: 'id',
       },
-      tripparticipantId: {
-        type: DataTypes.UUID,
-        references: {
-          model: 'TripParticipants',
-          key: 'id',
-        },
+    },
+    tripparticipantId: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'TripParticipants',
+        key: 'id',
       },
+    },
     content: { 
       type: DataTypes.STRING,
       allowNull: true,

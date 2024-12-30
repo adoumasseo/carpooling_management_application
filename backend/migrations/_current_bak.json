@@ -97,10 +97,21 @@
                     "onUpdate": "CASCADE",
                     "field": "CompanyId",
                     "seqType": "Sequelize.UUID"
+                },
+                "companyId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Companies",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "companyId",
+                    "seqType": "Sequelize.UUID"
                 }
             },
             "indexes": []
         }
     },
-    "revision": 1
+    "revision": 2
 }

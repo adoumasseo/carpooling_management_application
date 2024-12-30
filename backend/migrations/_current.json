@@ -1,5 +1,64 @@
 {
     "tables": {
+        "Comments": {
+            "tableName": "Comments",
+            "schema": {
+                "tripId": {
+                    "references": {
+                        "model": "Trips",
+                        "key": "id"
+                    },
+                    "field": "tripId",
+                    "seqType": "Sequelize.UUID"
+                },
+                "tripparticipantId": {
+                    "references": {
+                        "model": "TripParticipants",
+                        "key": "id"
+                    },
+                    "field": "tripparticipantId",
+                    "seqType": "Sequelize.UUID"
+                },
+                "content": {
+                    "allowNull": true,
+                    "field": "content",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "TripId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Trips",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "TripId",
+                    "seqType": "Sequelize.UUID"
+                },
+                "TripParticipantId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "TripParticipants",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "field": "TripParticipantId",
+                    "seqType": "Sequelize.UUID"
+                }
+            },
+            "indexes": []
+        },
         "Companies": {
             "tableName": "Companies",
             "schema": {
@@ -39,6 +98,154 @@
                     "allowNull": false,
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Trips": {
+            "tableName": "Trips",
+            "schema": {
+                "id": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "unique": true,
+                    "field": "id",
+                    "seqType": "Sequelize.UUID"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "startDate": {
+                    "allowNull": false,
+                    "field": "startDate",
+                    "seqType": "Sequelize.DATE"
+                },
+                "startPlace": {
+                    "allowNull": false,
+                    "field": "startPlace",
+                    "seqType": "Sequelize.STRING"
+                },
+                "endPlace": {
+                    "allowNull": false,
+                    "field": "endPlace",
+                    "seqType": "Sequelize.STRING"
+                },
+                "status": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": "planned"
+                    },
+                    "field": "status",
+                    "seqType": "Sequelize.ENUM('planned', 'active', 'suspended')"
+                },
+                "suspend_reason": {
+                    "allowNull": true,
+                    "field": "suspend_reason",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "userId",
+                    "seqType": "Sequelize.UUID"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.UUID"
+                }
+            },
+            "indexes": []
+        },
+        "TripParticipants": {
+            "tableName": "TripParticipants",
+            "schema": {
+                "id": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "unique": true,
+                    "field": "id",
+                    "seqType": "Sequelize.UUID"
+                },
+                "token": {
+                    "allowNull": true,
+                    "unique": true,
+                    "field": "token",
+                    "seqType": "Sequelize.STRING"
+                },
+                "cancel_reason": {
+                    "allowNull": true,
+                    "field": "cancel_reason",
+                    "seqType": "Sequelize.STRING"
+                },
+                "status": {
+                    "defaultValue": {
+                        "value": "cancelled"
+                    },
+                    "allowNull": false,
+                    "field": "status",
+                    "seqType": "Sequelize.ENUM('confirmed', 'pending', 'cancelled')"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "userId",
+                    "seqType": "Sequelize.UUID"
+                },
+                "UserId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "UserId",
+                    "seqType": "Sequelize.UUID"
                 }
             },
             "indexes": []
@@ -113,5 +320,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 3
 }
