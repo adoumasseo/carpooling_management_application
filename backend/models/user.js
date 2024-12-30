@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Company, {
         foreignKey: 'companyId'
-      })
+      });
+      this.hasMany(models.Trip);
     }
 
     /**
