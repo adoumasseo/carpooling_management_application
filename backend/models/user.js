@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'companyId'
       });
       this.hasMany(models.Trip);
+      this.hasMany(models.TripParticipant);
     }
 
     /**
