@@ -26,6 +26,7 @@
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "pg-promise": "^11.10.2",
+    "redis": "^4.7.0",
     "sequelize": "^6.37.5",
     "sequelize-auto-migrations": "github:scimonster/sequelize-auto-migrations",
     "validator": "^13.12.0"
