@@ -14,24 +14,35 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Users', [
       {
-        id: 'ee540d05-095f-4112-b7dd-a5c0f26aaa2a',
-        name: 'AdminAdmin',
-        password: 'admin@admin',
-        email: 'adoumasseo@gmail.com',
-        role: 'super_admin',
-        createdAt: '2018-03-22 08:30:58.7',
-        updatedAt: '2018-03-22 08:30:58.7',
-      },
-      {
-        id: '10d5689d-6027-4623-a879-7aeec6d05540',
-        name: 'Ortniel',
+        id: '50d5689d-6027-4623-a879-7aeec6d05540',
+        name: 'Nithael',
         password: 'Ortniel@Ortniel',
-        email: 'adoumasseo@ortniel.bj',
+        email: 'nithael@ortniel.bj',
         companyId: '95c47a68-f724-483a-921a-4d8aefd86c8b',
         role: 'user',
         createdAt: '2018-03-22 08:30:58.7',
         updatedAt: '2018-03-22 08:30:58.7',
       },
+      {
+        id: '51d5689d-6027-4623-a879-7aeec6d05540',
+        name: 'Mac-Arthur',
+        password: 'Ortniel@Ortniel',
+        email: 'mac@ortniel.bj',
+        companyId: '95c47a68-f724-483a-921a-4d8aefd86c8b',
+        role: 'user',
+        createdAt: '2018-03-22 08:30:58.7',
+        updatedAt: '2018-03-22 08:30:58.7',
+      },
+      {
+        id: '52d5689d-6027-4623-a879-7aeec6d05540',
+        name: 'DSI',
+        password: 'Ortniel@Ortniel',
+        email: 'charly@ortniel.bj',
+        companyId: '95c47a68-f724-483a-921a-4d8aefd86c8b',
+        role: 'company_admin',
+        createdAt: '2018-03-22 08:30:58.7',
+        updatedAt: '2018-03-22 08:30:58.7',
+      }
     ], {})
   },
 
