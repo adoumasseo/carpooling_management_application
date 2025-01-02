@@ -1,8 +1,8 @@
 const express = require('express');
 require('dotenv').config();
 const http = require('http');
-const db = require('./models/index');
-const { testConnection, handleExit } = require('./config/database');
+const db = require('./src/models/index');
+const { testConnection, handleExit } = require('./src/config/database');
 
 const app = express();
 const server = http.createServer(app);
