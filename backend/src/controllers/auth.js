@@ -49,7 +49,7 @@ const refreshAccessToken = async (req, res) => {
       return res.status(403).json({ error: 'Invalid refresh token' });
     }
 
-    const newAccessToken = generateToken({ fullName: decoded.userName, email: decoded.userMail, id: userId });
+    const newAccessToken = generateToken({ userName: decoded.fullName, userMail: decoded.email, userId: userId });
     res.json({ accessToken: newAccessToken });
   } catch (err) {
     res.status(403).json({ error: 'Invalid or expired refresh token' });
@@ -70,4 +70,10 @@ const revokeToken = async (req, res) => {
   res.json({ message: 'Refresh token revoked successfully' });
 };
 
-module.exports = { login, refreshAccessToken, revokeToken };
+module.exports = { 
+  storeRefreshToken,
+  validateRefreshToken,
+  revokeRefreshToken,
+  refreshAccessToken,
+  revokeToken
+};
