@@ -1,4 +1,6 @@
 'use strict';
+const { faker } = require('@faker-js/faker');
+const db = require('../models/index')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +14,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Users', [
+    const companies = await db.Company.findAll();
+    const fakeUsers = [
       {
         id: 'ee540d05-095f-4112-b7dd-a5c0f26aaa2a',
         name: 'AdminAdmin',
@@ -21,18 +24,25 @@ module.exports = {
         role: 'super_admin',
         createdAt: '2018-03-22 08:30:58.7',
         updatedAt: '2018-03-22 08:30:58.7',
-      },
-      {
-        id: '10d5689d-6027-4623-a879-7aeec6d05540',
-        name: 'Ortniel',
-        password: 'Ortniel@Ortniel',
-        email: 'adoumasseo@ortniel.bj',
-        companyId: '95c47a68-f724-483a-921a-4d8aefd86c8b',
-        role: 'user',
-        createdAt: '2018-03-22 08:30:58.7',
-        updatedAt: '2018-03-22 08:30:58.7',
-      },
-    ], {})
+      }
+    ];
+    let role = 'user';
+    companies.forEach((company) => {
+      for (let i = 0; i < 5; i++) { 
+        if ( i % 2 === 0) { role = 'company_admin'}
+        fakeUsers.push({
+          id: faker.string.uuid(),
+          name: faker.name.fullName(),
+          email: faker.internet.email(),
+          password: 'test@test',
+          role: role,
+          companyId: company.id, // Foreign key
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      }
+    });
+    await queryInterface.bulkInsert('Users', fakeUsers, {})
   },
 
   async down (queryInterface, Sequelize) {

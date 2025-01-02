@@ -135,6 +135,11 @@
                     "field": "endPlace",
                     "seqType": "Sequelize.STRING"
                 },
+                "seatNumber": {
+                    "allowNull": false,
+                    "field": "seatNumber",
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "status": {
                     "allowNull": false,
                     "defaultValue": {
@@ -320,5 +325,5 @@
             "indexes": []
         }
     },
-    "revision": 3
+    "revision": 4
 }

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Trip.init({
-    id: { 
+    id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
@@ -33,12 +33,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-                isFuture(value) {
-                  if (new Date(value) <= new Date()) {
-                    throw new Error('Start date must be in the future.');
-                  }
-                },
-              },
+        isFuture(value) {
+          if (new Date(value) <= new Date()) {
+            throw new Error('Start date must be in the future.');
+          }
+        },
+      },
     },
     startPlace: {
       type: DataTypes.STRING,
@@ -55,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
         len: [2, 50],
       }
+    },
+    seatNumber: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM('planned', 'active', 'suspended'),
